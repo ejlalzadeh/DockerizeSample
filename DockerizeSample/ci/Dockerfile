@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY . .
-run ls
 RUN dotnet restore "./DockerizeSample.csproj"
 RUN dotnet build "./DockerizeSample.csproj" -c Release -o /app/build
 
