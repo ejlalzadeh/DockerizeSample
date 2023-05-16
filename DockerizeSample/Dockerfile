@@ -1,4 +1,4 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# All lines that begin with # are considered as comment
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -12,6 +12,7 @@ RUN dotnet publish "DockerizeSample.csproj" -c Release -o /app/publish /p:UseApp
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN ln -snf /usr/share/zoneinfo/Asia/Tehran /etc/localtime
 
 EXPOSE 80
 

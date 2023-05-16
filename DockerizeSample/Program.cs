@@ -6,7 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddHostedService<CustomHostedService>();
+var addHostedServicesEnv = Environment.GetEnvironmentVariable("flag");
+
+if (addHostedServicesEnv == null)
+    throw new ArgumentNullException("ENV IS NULL");
+
+if (Convert.ToBoolean(addHostedServicesEnv))
+    builder.Services.AddHostedService<CustomHostedService>();
 
 var app = builder.Build();
 
